@@ -1,16 +1,52 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
 
 const CustomDrawer = ({navigation}) => {
 
+  const [cameraphoto, setCameraphoto] = useState('');
   const [isPressed, setIsPressed] = useState(false);
+  const [rname, setRname] = useState('YourCloset');
+  const [remail, setRemail] = useState('support@yourClosetApp.com');
+
+  useEffect(() => {
+    getdata()
+  
+  })
+
+
 
   const handlePress = () => {
     setIsPressed(!isPressed);
   };
-  
 
+  const getdata = async () => {
+    try {
+      const sname = await AsyncStorage.getItem('name');
+      const semail = await AsyncStorage.getItem('email');
+      // const spic = await AsyncStorage.getItem('pic');
+      setRname(sname)
+      setRemail(semail)
+      // setCameraphoto(spic)
+      console.log(rname)
+      console.log(remail)
+
+    } catch (e) {
+      console.log(e)
+    }
+  
+  }
+  
+  const saveData = async () => {
+    try {
+      await AsyncStorage.setItem("pic" , cameraphoto);
+      return true
+    } catch (e) {
+      return false
+    }
+  }
 
 
   function feedback() {
@@ -25,18 +61,49 @@ const CustomDrawer = ({navigation}) => {
         navigation.navigate('Outfits');
   }
   
-  function logout() {
-        navigation.navigate('Login');
+  removeValue = async () => {
+    try {
+      await AsyncStorage.removeItem('token')
+    } catch(e) {
+      // remove error
+    }
+  
+    console.log('Done.')
+  }
+
+  const opengallery = () => {
+
+    let options = {
+      storageOptions:{
+        path:"image"
+      }
+    }
+
+    launchImageLibrary(options,response => {
+      console.log(response);
+      setCameraphoto(response.assets[0].uri)
+      saveData();
+      console.log(cameraphoto)
+    })
+  }
+
+  const logout  = () => {
+    removeValue();
+    navigation.navigate('Login');
   }
 
   return (
     <View>
       <View style = {styles.top_cont}>
-      <Image 
-      style = {styles.img}
-      source={require('./logo.png')} />
-      <Text style = {[styles.top_text, {fontWeight: "800"}]}>YourCloset</Text>
-      <Text style = {styles.top_text}>support@YourClosetApp.com</Text>
+        <TouchableOpacity
+        onPress={opengallery}
+        >
+          <Image 
+          style = {styles.img}
+          source={{uri: cameraphoto}} />
+        </TouchableOpacity>
+      <Text style = {[styles.top_text, {fontWeight: "800"}]}>{rname}</Text>
+      <Text style = {styles.top_text}>{remail}</Text>
 
       </View>
 
@@ -132,7 +199,9 @@ const styles = StyleSheet.create({
     marginTop: 40,
     marginLeft: 30,
     marginBottom: 20,
-    borderRadius: 8
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: 'black'
   },
 
   closet:{

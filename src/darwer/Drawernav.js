@@ -5,6 +5,7 @@ import Main from './screen/Main';
 import Outfits from './screen/Outfits';
 import Packing from './screen/Packing';
 import Feedback from '../bottom/screen/Feedback';
+import Login from '../screen/Login';
 
 
 
@@ -17,6 +18,7 @@ const Drawernav = () => {
         <Drawer.Screen name="Outfits" component={Outfits} />
         <Drawer.Screen name="Packing" component={Packing} />
         <Drawer.Screen name="Feedback" component={Feedback} />
+        <Drawer.Screen name='Login' component={Login} />
     </Drawer.Navigator>
   )
 }

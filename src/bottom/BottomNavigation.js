@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Home from './screen/Home';
 import Notif from './screen/Notif';
 import Feedback from './screen/Feedback';
+import Login from '../screen/Login';
 
 
 

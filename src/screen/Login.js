@@ -1,21 +1,64 @@
-import { View, Text, Button, TextInput, StyleSheet, Image } from 'react-native'
+import { View, Text, Button, TextInput, StyleSheet, Image, Alert } from 'react-native'
 import React, {useState, useEffect} from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({navigation}) => {
 
+  useEffect(() => {
+    getdata();
+  })
+
   // const [isShowingText, setIsShowingText] = useState(true);
   const [name, setname] = useState('');
-  const [pass, setpass] = useState();
+  const [pass, setpass] = useState('');
+  
+  const [rname, setRname] = useState('');
+  const [rpass, setRpass] = useState('');
 
-  function login() {
-    if (name == 'Himanshu' && pass == "123456") {
-        navigation.navigate('Home');
+
+let n = ['rname', name]
+let p = ['rpass', pass]
+
+
+  const getdata = async () => {
+    try {
+      const sname = await AsyncStorage.getItem('name');
+      const spass = await AsyncStorage.getItem('pass');
+      setRname(sname)
+      setRpass(spass)
+      console.log(rname)
+      console.log(rpass)
+
+    } catch (e) {
+      console.log(e)
     }
-    else 
-    (
-      console.log("Try again")
-    )
+  
+  }
+
+  const settoken = async () => {
+    try {
+      await AsyncStorage.setItem('token', pass);
+    } catch (e) {
+      Alert.alert(e)
+    }
+  } 
+
+  const login = () => {
+    if(rname === name && rpass === pass){
+      navigation.navigate('Home');
+      settoken()
+    }
+    else{
+      if(name == 'Himanshu' && pass == "123456") {
+          navigation.navigate('Home');
+      }
+      else 
+      (
+        Alert.alert("Try again")
+      ) 
+    }
+
   }
 
   function singup() {
@@ -58,7 +101,6 @@ const Login = ({navigation}) => {
           <Text style = {styles.btntext} >Login</Text>
         </TouchableOpacity>
 
-
         <TouchableOpacity
         onPress={singup}
         style = {styles.btn2} 
@@ -77,7 +119,8 @@ const styles = StyleSheet.create({
 
   container:{
     backgroundColor: "white",
-    height: "100%"
+    height: "100%",
+    width: "100%"
 
   },
   logo:{
