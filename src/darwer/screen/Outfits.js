@@ -1,6 +1,6 @@
-import { FlatList, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { FlatList, Image, RefreshControl, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
-import { RefreshControl } from 'react-native-gesture-handler';
+
 
 const Outfits = () => {
 
@@ -75,8 +75,8 @@ const Outfits = () => {
 
             
         </View>
-
-        {/* <RefreshControl 
+{/* 
+        <RefreshControl 
         refreshing={loading}
         onRefresh={() => {
             getData();
