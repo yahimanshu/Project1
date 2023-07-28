@@ -1,6 +1,8 @@
 package com.project1;
 
 import android.app.Application;
+import android.util.Log;
+
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;

@@ -1,5 +1,7 @@
 package com.project1;
 
+import android.util.Log;
+
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
@@ -23,6 +25,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected ReactActivityDelegate createReactActivityDelegate() {
+    Log.d("Test", "createReactActivityDelegate: ");
     return new DefaultReactActivityDelegate(
         this,
         getMainComponentName(),
