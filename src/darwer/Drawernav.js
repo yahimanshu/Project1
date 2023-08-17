@@ -7,6 +7,7 @@ import Packing from './screen/Packing';
 import Feedback from '../bottom/screen/Feedback';
 import Login from '../screen/Login';
 import Videoplay from './screen/Videoplay';
+import Category from './screen/Category';
 
 
 
@@ -19,6 +20,7 @@ const Drawernav = () => {
         <Drawer.Screen name="Outfits" component={Outfits} />
         <Drawer.Screen name="Packing" component={Packing} />
         <Drawer.Screen name="Feedback" component={Feedback} />
+        <Drawer.Screen name="Category" component={Category} />
         <Drawer.Screen name='Videoplay' component={Videoplay} />
         <Drawer.Screen name='Login' component={Login} />
     </Drawer.Navigator>

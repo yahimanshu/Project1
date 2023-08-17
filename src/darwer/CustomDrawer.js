@@ -112,7 +112,7 @@ const CustomDrawer = ({navigation}) => {
 
       <View style = {styles.closet}>
       <TouchableOpacity 
-      // onPress={handlePress}
+      onPress={() => navigation.navigate("Category")}
       style={[styles.btn, isPressed && styles.itemPressed]}
       >
         <Text style = {styles.btntext}>By Category</Text>

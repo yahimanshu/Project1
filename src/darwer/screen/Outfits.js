@@ -56,9 +56,9 @@ const Outfits = () => {
   return (
     <View style = {styles.container}>
         <View style={styles.searchbarcom}>
-            <Image style={styles.searchicon} 
+            {search == '' ? <Image style={styles.searchicon} 
             source={require('./search.png')} 
-            />
+            /> : null}
             <TextInput 
             ref={searchRef}
             value={search}
@@ -73,7 +73,7 @@ const Outfits = () => {
                 style={{marginRight: 15}}
                 onPress={() => {
                     searchRef.current.clear();
-                    // onSearch();
+                    onSearch("");
                     setSearch('');
                 }}>
 
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
         height: 115,
         paddingTop: 5,
         paddingLeft: 5,
-        backgroundColor: '#fff',
+        backgroundColor: '#ffffff',
         alignSelf: 'center',
         marginTop: 10,
         flexDirection: 'row',
@@ -174,7 +174,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: 5,
         borderRadius: 15,
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
+        marginBottom: 10
     },
     searchicon:{
         width: 20,
@@ -208,7 +209,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         borderRadius:20,
         width: 20
-
     },
     carticon:{
         width: 25,
