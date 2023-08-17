@@ -120,7 +120,7 @@ const CustomDrawer = ({navigation}) => {
 
       <TouchableOpacity 
       style = {styles.btn}
-      // onPress={category}
+      onPress={() =>navigation.navigate("Videoplay")}
       >
         <Text style = {styles.btntext}>By color</Text>
       </TouchableOpacity>

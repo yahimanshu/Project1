@@ -7,6 +7,8 @@ import Login from './screen/Login';
 import Singup from './screen/Singup';
 import Home from './screen/Home';
 import Test from './screen/Test';
+import Cart from './screen/Cart';
+
 
 
 const Stack = createStackNavigator();
@@ -20,6 +22,7 @@ const Nav = () => {
             <Stack.Screen name='Singup' component={Singup} options={{headerShown: false}}/>
             <Stack.Screen name='Home' component={Home} options={{headerShown: false}}/>
             <Stack.Screen name='Test' component={Test} options={{headerShown: false}}/>
+            <Stack.Screen name='Cart' component={Cart} options={{headerShown: false}}/>
         </Stack.Navigator>
     </NavigationContainer>
   )

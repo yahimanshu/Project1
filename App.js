@@ -2,6 +2,8 @@ import { View, Text, Alert } from 'react-native'
 import React, { useEffect } from 'react'
 import Nav from './src/Nav'
 import messaging from '@react-native-firebase/messaging'
+import { Provider} from 'react-redux';
+import MyStore from './src/reduxtoolkit/MyStore';
 
 const App = () => {
   useEffect(() => {
@@ -26,12 +28,11 @@ const App = () => {
 
     return unsubscribe;
   }, []);
-
-
-
-
-
-  return <Nav/>
+  return (
+    <Provider store={MyStore}>
+      <Nav/>
+    </Provider> 
+  );
 }
 
 export default App 

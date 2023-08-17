@@ -45,7 +45,7 @@ const Packing = () => {
             <Image 
             style={styles.productsimage} 
             source={{uri:item.image}}
-            resizeMethod= 'auto' />
+            resizeMode="contain" />
             <View>
               <Text style = {{fontWeight: 'bold', marginTop: 4, marginHorizontal: 8}}>{item.title.length > 15
               ? item.title.substring(0, 15) + "..."
@@ -66,13 +66,13 @@ const Packing = () => {
           numColumns={2}
           renderItem={({item, index}) => {
             return <View style={styles.itemViewi}>
-                <Image source={{uri:item.image}} style={styles.productsimagei} />
+                <Image source={{uri:item.image}} style={styles.productsimagei} resizeMode="contain" />
                 <View style = {{marginLeft: 10}}>
-                    <Text style = {{fontWeight: 'bold'}}>{item.title.length > 30
-                    ? item.title.substring(0, 30) + '...'
+                    <Text style = {{fontWeight: 'bold'}}>{item.title.length > 20
+                    ? item.title.substring(0, 20) + '...'
                     : item.title}</Text>
-                    <Text>{item.description.length > 30
-                    ? item.description.substring(0, 30) + '...'
+                    <Text>{item.description.length > 20
+                    ? item.description.substring(0, 20) + '...'
                     : item.description}</Text>
                     <Text style={styles.pricei} >{item.price + " $"}</Text>
                 </View>
@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
       flex: 1,
   },
   itemView:{
+      paddingVertical: 10,
       width: 200,
       height: 200,
       backgroundColor: '#fff',
@@ -99,6 +100,7 @@ const styles = StyleSheet.create({
       elevation: 5,
       borderRadius: 10,
       marginBottom: 10,
+      justifyContent: 'center'
   },
   productsimage:{
       width: 150,
@@ -114,13 +116,15 @@ const styles = StyleSheet.create({
   },
 
 itemViewi:{
+    paddingTop: 10,
     width: 200,
     height: 200,
-    backgroundColor: '#fff',
+    backgroundColor: '#ffffff',
     marginTop: 10,
     elevation: 5,
     borderRadius: 10,
     marginHorizontal: 5,
+    justifyContent: 'center'
 },
 productsimagei:{
     width: 100,

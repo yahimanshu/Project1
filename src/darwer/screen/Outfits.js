@@ -1,8 +1,13 @@
 import { FlatList, Image, RefreshControl, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { addCartItem } from '../../reduxtoolkit/CartSlice';
+import { useNavigation } from '@react-navigation/native';
 
 
 const Outfits = () => {
+
+    const navigation = useNavigation();
 
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -41,6 +46,13 @@ const Outfits = () => {
         }
     };
 
+    const dispatch = useDispatch();
+    const addeditems = useSelector(state => state);
+    // console.log(addeditems);
+    const addItem = (item) => {
+        dispatch(addCartItem(item));
+    };
+
   return (
     <View style = {styles.container}>
         <View style={styles.searchbarcom}>
@@ -73,8 +85,15 @@ const Outfits = () => {
                 </TouchableOpacity>
             )}
 
+        {addeditems.cart.length != 0 ?
+        <TouchableOpacity style={styles.carticon}
+        onPress={() => navigation.navigate("Cart")}>
+            <Image style={styles.carticon} source={require('./cart.png')} />
+            <Text style={styles.carttxt}>{addeditems.cart.length}</Text>
+        </TouchableOpacity> : ''}
             
         </View>
+
 {/* 
         <RefreshControl 
         refreshing={loading}
@@ -89,7 +108,7 @@ const Outfits = () => {
                     it(item.title);
                 }}>
                         <View style={styles.itemView}>
-                            <Image source={{uri:item.image}} style={styles.productsimage} />
+                            <Image source={{uri:item.image}} style={styles.productsimage} resizeMode="contain"/>
                             <View style = {{marginLeft: 10}}>
                                 <Text style = {{fontWeight: 'bold'}}>{item.title.length > 30
                                 ? item.title.substring(0, 30) + '...'
@@ -98,6 +117,10 @@ const Outfits = () => {
                                 ? item.description.substring(0, 30) + '...'
                                 : item.description}</Text>
                                 <Text style={styles.price} >{item.price + " $"}</Text>
+                            <TouchableOpacity style={styles.Cartbtn}
+                            onPress={() => {addItem(item)}}>
+                                <Text style={styles.Cartbtntxt}>Add to  cart</Text>
+                            </TouchableOpacity>
                             </View>
                         </View>
                 </TouchableOpacity>
@@ -116,7 +139,9 @@ const styles = StyleSheet.create({
     },
     itemView:{
         width: '90%',
-        height: 100,
+        height: 115,
+        paddingTop: 5,
+        paddingLeft: 5,
         backgroundColor: '#fff',
         alignSelf: 'center',
         marginTop: 10,
@@ -159,6 +184,35 @@ const styles = StyleSheet.create({
     },
     closeicon:{
         width: 20,
-        height: 20
+        height: 20,
     },
+    Cartbtn:{
+        width: 100,
+        height: 30,
+        backgroundColor: 'green',
+        alignItems: 'center',
+        borderRadius: 8,
+        elevation: 2
+    },
+    Cartbtntxt:{
+        marginTop: 5,
+        color: "white",
+        fontSize: 16
+    },
+    carttxt:{
+        bottom: 32,
+        left: 5,
+        fontSize: 15,
+        color: "white",
+        backgroundColor:"#97e2e6",
+        textAlign: 'center',
+        borderRadius:20,
+        width: 20
+
+    },
+    carticon:{
+        width: 25,
+        height: 25,
+        right: 5
+    }
 })
