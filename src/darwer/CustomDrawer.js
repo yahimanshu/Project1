@@ -83,7 +83,7 @@ const CustomDrawer = ({navigation}) => {
       console.log(response);
       setCameraphoto(response.assets[0].uri)
       saveData();
-      console.log(cameraphoto)
+      console.log(cameraphoto);
     })
   }
 

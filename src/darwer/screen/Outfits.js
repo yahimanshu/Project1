@@ -2,6 +2,7 @@ import { FlatList, Image, RefreshControl, StyleSheet, Text, TextInput, Touchable
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { addCartItem } from '../../reduxtoolkit/CartSlice';
+import { addProductDetail } from '../../reduxtoolkit/ProductDetailSlice';
 import { useNavigation } from '@react-navigation/native';
 
 
@@ -31,10 +32,6 @@ const Outfits = () => {
             }); 
     }
 
-    const it = (ind) =>{
-        console.log(ind)
-    }
-
     const onSearch=(text) => {
         if(text == '') {
             setProducts(OldData);
@@ -51,6 +48,10 @@ const Outfits = () => {
     // console.log(addeditems);
     const addItem = (item) => {
         dispatch(addCartItem(item));
+    };
+    const addProduct = (item) => {
+        dispatch(addProductDetail(item));
+        navigation.navigate("ProductDetail");
     };
 
   return (
@@ -105,7 +106,7 @@ const Outfits = () => {
             renderItem={({item, index}) => {
                 return <TouchableOpacity
                 onPress={() => {
-                    it(item.title);
+                    addProduct(item);
                 }}>
                         <View style={styles.itemView}>
                             <Image source={{uri:item.image}} style={styles.productsimage} resizeMode="contain"/>

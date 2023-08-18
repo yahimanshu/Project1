@@ -46,7 +46,7 @@ const Home = () => {
               <Text style={styles.cardtxt2}>581 persons</Text>
             </View>
             <View style={styles.card} >
-            <Image style={styles.cardimg}  source={require('./img/food.png')}/>
+            <Image style={styles.cardimg}  source={require('./img/food.png')} resizeMode='contain' />
               <Text style={styles.cardtxt}>Food</Text>
               <Text style={styles.cardtxt2}>581 persons</Text>
             </View>

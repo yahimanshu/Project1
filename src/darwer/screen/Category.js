@@ -9,7 +9,7 @@ const Category = () => {
 
     const apicall = () => {
         dispatch(fetchProducts)
-        console.log(prodcucts)
+        console.log(prodcucts.prodcuct)
     }
 
   return (

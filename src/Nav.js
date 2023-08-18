@@ -8,6 +8,7 @@ import Singup from './screen/Singup';
 import Home from './screen/Home';
 import Test from './screen/Test';
 import Cart from './screen/Cart';
+import ProductDetail from './darwer/screen/ProductDetail';
 
 
 
@@ -23,6 +24,7 @@ const Nav = () => {
             <Stack.Screen name='Home' component={Home} options={{headerShown: false}}/>
             <Stack.Screen name='Test' component={Test} options={{headerShown: false}}/>
             <Stack.Screen name='Cart' component={Cart} options={{headerShown: false}}/>
+            <Stack.Screen name='ProductDetail' component={ProductDetail} options={{headerShown: false}}/>
         </Stack.Navigator>
     </NavigationContainer>
   )
