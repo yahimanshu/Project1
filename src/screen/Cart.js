@@ -1,26 +1,72 @@
 import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { removeCartItem } from '../reduxtoolkit/CartSlice';
+import RazorpayCheckout from 'react-native-razorpay';
 
 
 const Cart = () => {
+
+    useEffect(() => {
+        getTotle()
+    }, [])
+
+
+    const payment = () => {
+            var options = {
+            description: 'Credits towards consultation',
+            image: 'https://i.imgur.com/3g7nmJC.jpg',
+            currency: 'INR',
+            key: 'rzp_test_2VYHup8J177yIx',
+            amount: totelprice * 100,
+            name: 'My App',
+            order_id: 'order_DslnoIgkIDL8Zt',//Replace this with an order_id created using Orders API.
+            prefill: {
+              email: 'gaurav.kumar@example.com',
+              contact: '9191919191',
+              name: 'Gaurav Kumar'
+            },
+            theme: {color: '#53a20e'}
+          }
+          RazorpayCheckout.open(options).then((data) => {
+            // handle success
+            alert(`Success: ${data.razorpay_payment_id}`);
+          }).catch((error) => {
+            // handle failure
+            alert(`Error: ${error.code} | ${error.description}`);
+          });
+      
+    }
+
+    const [totelprice, setTotelprice] = useState();
 
     const navigation = useNavigation();
 
     const dispatch = useDispatch();
     const addeditems = useSelector(state => state);
-    console.log(addeditems);
+    console.log(addeditems.cart[0].price);
     const removeItem = (index) => {
         dispatch(removeCartItem(index));
     };
+
+    const getTotle = () => {
+        var element = 0;
+        for (let index = 0; index < addeditems.cart.length; index++) {
+             element = element + addeditems.cart[index].price;
+            
+            }
+            console.log(element)
+            setTotelprice(element)
+    }
+
 
   return (
     <View>
         <TouchableOpacity onPress={()=> navigation.navigate("Outfits")}>
             <Text style={{fontSize: 20, fontWeight: 'bold', color: "black", marginLeft: 10, marginVertical: 10}}>BACK</Text>
         </TouchableOpacity>
+    <View style={{width: "100%", height: "87%"}}>
       <FlatList 
             data={addeditems.cart}
             renderItem={({item, index}) => {
@@ -47,6 +93,10 @@ const Cart = () => {
                 </TouchableOpacity>
             }} 
             />
+        </View>
+            <TouchableOpacity onPress={() => payment()} style={{backgroundColor: "green", padding: 10, width: "90%", alignItems: 'center', borderRadius: 8, alignSelf: 'center',marginTop: 10}}>
+                <Text style={{fontSize: 20, fontWeight: 'bold', color: 'white',}}>{"Pay Now $" + totelprice}</Text>
+            </TouchableOpacity>
     </View>
   )
 }

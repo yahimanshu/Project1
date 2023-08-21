@@ -245,7 +245,8 @@ const ProductDetail = () => {
                                             
                                             <View style={{ flexDirection: 'row', marginLeft: 80}}>
                                                 <TouchableOpacity onPress={() => 
-                                                    setlike(!like) }>
+                                                   {setlike(!like) 
+                                                    like !=  true ? setdislike(false): '' } }>
                                                 {like == false ? 
                                                     <Image style={{width: 25, height: 25, }} source={require("./like.png")} /> :
                                                     <Image style={{width: 25, height: 25, }} source={require("./like-2.png")} />
@@ -256,7 +257,8 @@ const ProductDetail = () => {
 
                                             <View style={{elevation: 10, flexDirection: 'row', marginLeft: 20}}>
                                                 <TouchableOpacity onPress={() => 
-                                                    setdislike(!dislike) }>
+                                                    {setdislike(!dislike)
+                                                        dislike !=  true ? setlike(false): '' }  }>
                                                 {dislike == false ? 
                                                     <Image style={{width: 25, height: 25, marginTop: 5}} source={require("./dislike.png")} /> :
                                                     <Image style={{width: 25, height: 25, marginTop: 5}} source={require("./dislike-2.png")} />
