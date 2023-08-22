@@ -12,11 +12,12 @@ const CustomDrawer = ({navigation}) => {
   const [remail, setRemail] = useState('support@yourClosetApp.com');
 
   useEffect(() => {
-    getdata()
+    // getdata()
   
   })
 
 
+  const fromdata = new FormData();
 
   const handlePress = () => {
     setIsPressed(!isPressed);
@@ -26,11 +27,11 @@ const CustomDrawer = ({navigation}) => {
     try {
       const sname = await AsyncStorage.getItem('name');
       const semail = await AsyncStorage.getItem('email');
-      // const spic = await AsyncStorage.getItem('pic');
-      setRname(sname)
-      setRemail(semail)
+      const spic = await AsyncStorage.getItem('pic');
+      // setRname(sname)
+      // setRemail(semail)
       // setCameraphoto(spic)
-      console.log(rname)
+      console.log(semail)
       console.log(remail)
 
     } catch (e) {
@@ -81,7 +82,30 @@ const CustomDrawer = ({navigation}) => {
 
     launchImageLibrary(options,response => {
       console.log(response);
+
+      try{
+
+        const data = {
+          uri : response.assets[0].uri,
+          name : response.assets[0].fileName,
+          fileName : response.assets[0].fileName,
+          type : response.assets[0].type
+        }
+
+        fromdata.append("image", JSON.stringify(data)); // Append the data as JSON string
+
+        // Log the FormData object itself
+        // console.log("FormData Object:", fromdata);
+      
+        // Log the entries in the FormData object
+        fromdata.forEach((value, key) => {
+          // console.log(`Key: ${key}, Value: ${value}`);
+        });
+
       setCameraphoto(response.assets[0].uri)
+      }catch (error){
+        console.log(error)
+      }
       saveData();
       console.log(cameraphoto);
     })
@@ -103,7 +127,7 @@ const CustomDrawer = ({navigation}) => {
           source={{uri: cameraphoto}} />
         </TouchableOpacity>
       <Text style = {[styles.top_text, {fontWeight: "800"}]}>{rname}</Text>
-      <Text style = {styles.top_text}>{remail}</Text>
+      <Text style = {styles.top_text}>{remail }</Text>
 
       </View>
 
@@ -127,7 +151,7 @@ const CustomDrawer = ({navigation}) => {
 
       <TouchableOpacity 
       style = {styles.btn}
-      // onPress={setting}
+      onPress={() => navigation.navigate('Allitems')}
       >
         <Text style = {styles.btntext}>All Items</Text>
       </TouchableOpacity>
@@ -149,6 +173,14 @@ const CustomDrawer = ({navigation}) => {
         <Text style = {styles.btntext}>Packing</Text>
       </TouchableOpacity>
 
+
+      <TouchableOpacity 
+      style = {styles.btn}
+      onPress={() => navigation.navigate('Swap')}
+      >
+        <Text style = {styles.btntext}>Swap</Text>
+      </TouchableOpacity>
+
       <TouchableOpacity 
       style = {styles.btn}
       onPress={feedback}
@@ -159,6 +191,8 @@ const CustomDrawer = ({navigation}) => {
       </TouchableOpacity>
       </View>
 
+
+      
 
 
       <TouchableOpacity 

@@ -8,6 +8,8 @@ import Feedback from '../bottom/screen/Feedback';
 import Login from '../screen/Login';
 import Videoplay from './screen/Videoplay';
 import Category from './screen/Category';
+import Allitems from './screen/Allitems';
+import Swap from './screen/Swap';
 
 
 
@@ -22,6 +24,8 @@ const Drawernav = () => {
         <Drawer.Screen name="Feedback" component={Feedback} />
         <Drawer.Screen name="Category" component={Category} />
         <Drawer.Screen name='Videoplay' component={Videoplay} />
+        <Drawer.Screen name='Allitems' component={Allitems} />
+        <Drawer.Screen name='Swap' component={Swap} />
         <Drawer.Screen name='Login' component={Login} />
     </Drawer.Navigator>
   )

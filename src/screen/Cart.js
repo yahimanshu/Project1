@@ -10,7 +10,7 @@ const Cart = () => {
 
     useEffect(() => {
         getTotle()
-    }, [])
+    })
 
 
     const payment = () => {
@@ -45,17 +45,21 @@ const Cart = () => {
 
     const dispatch = useDispatch();
     const addeditems = useSelector(state => state);
-    console.log(addeditems.cart[0].price);
+    // console.log(addeditems.cart[0].price);
     const removeItem = (index) => {
         dispatch(removeCartItem(index));
     };
 
     const getTotle = () => {
         var element = 0;
-        for (let index = 0; index < addeditems.cart.length; index++) {
-             element = element + addeditems.cart[index].price;
-            
-            }
+        try {
+            for (let index = 0; index < addeditems.cart.length; index++) {
+                element = element + addeditems.cart[index].price;
+               
+               }
+          } catch (error) {
+            console.log(error)
+          } 
             console.log(element)
             setTotelprice(element)
     }
@@ -95,7 +99,7 @@ const Cart = () => {
             />
         </View>
             <TouchableOpacity onPress={() => payment()} style={{backgroundColor: "green", padding: 10, width: "90%", alignItems: 'center', borderRadius: 8, alignSelf: 'center',marginTop: 10}}>
-                <Text style={{fontSize: 20, fontWeight: 'bold', color: 'white',}}>{"Pay Now $" + totelprice}</Text>
+                <Text style={{fontSize: 20, fontWeight: 'bold', color: 'white',}}>Pay Now  {totelprice > 0 ? "$"+totelprice: '' } </Text>
             </TouchableOpacity>
     </View>
   )

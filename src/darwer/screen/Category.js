@@ -1,16 +1,28 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchProducts } from '../../reduxtoolkit/ProductSlice';
 
 const Category = () => {
-    const dispatch = useDispatch();
-    const prodcucts = useSelector(state => state);
+    // const dispatch = useDispatch();
+    // const prodcucts = useSelector(state => state);
 
     const apicall = () => {
-        dispatch(fetchProducts)
-        console.log(prodcucts.prodcuct)
+      if (!apiData) {
+        console.log("null");
+      }else{
+        console.log(apiData.data);
+      }
     }
+
+    const dispatch = useDispatch();
+    const apiData = useSelector((state) => state.prodcuct); // Access the data from the store
+  
+    useEffect(() => {
+      dispatch(fetchProducts()); // Dispatch the async thunk
+    }, [dispatch]);
+  
+  
 
   return (
     <View style={{ justifyContent: 'center', alignSelf: 'center', alignItems: 'center', flex: 1}}> 
