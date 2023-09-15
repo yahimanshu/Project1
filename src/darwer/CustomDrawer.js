@@ -95,11 +95,11 @@ const CustomDrawer = ({navigation}) => {
         fromdata.append("image", JSON.stringify(data)); // Append the data as JSON string
 
         // Log the FormData object itself
-        // console.log("FormData Object:", fromdata);
+        console.log("FormData Object:", fromdata);
       
         // Log the entries in the FormData object
         fromdata.forEach((value, key) => {
-          // console.log(`Key: ${key}, Value: ${value}`);
+          console.log(`Key: ${key}, Value: ${value}`);
         });
 
       setCameraphoto(response.assets[0].uri)
@@ -179,6 +179,28 @@ const CustomDrawer = ({navigation}) => {
       onPress={() => navigation.navigate('Swap')}
       >
         <Text style = {styles.btntext}>Swap</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity 
+      style = {styles.btn}
+      onPress={() => navigation.navigate('Test')}
+      >
+        <Text style = {styles.btntext}>Neomorph</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity 
+      style = {styles.btn}
+      onPress={() => navigation.navigate('Textreco')}
+      >
+        <Text style = {styles.btntext}>Text</Text>
+      </TouchableOpacity>
+
+
+      <TouchableOpacity 
+      style = {styles.btn}
+      onPress={() => navigation.navigate('VideoCrop')}
+      >
+        <Text style = {styles.btntext}>VideoCrop</Text>
       </TouchableOpacity>
 
       <TouchableOpacity 

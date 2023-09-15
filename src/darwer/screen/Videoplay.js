@@ -19,22 +19,24 @@ const Videoplay = () => {
     return (
         <View style={{ flex: 1 }}>
             <TouchableOpacity
-                style={{ width: '100%', height: 200 }}
+                style={{ width: 900, height: 500, left : -475}}
                 onPress={playerControl}>
                 <Video
                 paused={puased}
+                repeat={true}
+                
                 source={{ uri: "https://www.shutterstock.com/shutterstock/videos/1060933054/preview/stock-footage-circa-in-this-animated-film-a-sheep-saves-his-nephews-from-a-hungry-wolf.webm" }}   // Can be a URL or a local file.
                     //    ref={(ref) => {
                     //      this.player = ref
                     //    }}                                      // Store reference
                     //    onBuffer={this.onBuffer}                // Callback when remote video is buffering
                     //    onError={this.videoError}               // Callback when video cannot be loaded
-                    style={{ width: '100%', height: 200 }}
+                    style={{ width: '100%', height: "100%" }}
                     resizeMode="contain" />
 
                 {clicked && (<TouchableOpacity
                 onPress={() => setClicked(false)}
-                style={{ width: '100%', height: 200, position: 'absolute', backgroundColor: 'rgba(0,0,0,.3)' , justifyContent: 'center', alignItems: 'center'}}>
+                style={{ width: '100%', height: "100%", position: 'absolute', backgroundColor: 'rgba(0,0,0,.3)' , justifyContent: 'center', alignItems: 'center'}}>
                     <View style={{flexDirection: 'row'}}>
                         <TouchableOpacity>
                             <Image 

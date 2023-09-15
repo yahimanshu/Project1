@@ -10,6 +10,9 @@ import Videoplay from './screen/Videoplay';
 import Category from './screen/Category';
 import Allitems from './screen/Allitems';
 import Swap from './screen/Swap';
+import Neomorphs from './screen/Neomorphs';
+import Textreco from './screen/Textreco';
+import VideoCrop from './screen/VideoCrop';
 
 
 
@@ -26,6 +29,9 @@ const Drawernav = () => {
         <Drawer.Screen name='Videoplay' component={Videoplay} />
         <Drawer.Screen name='Allitems' component={Allitems} />
         <Drawer.Screen name='Swap' component={Swap} />
+        <Drawer.Screen name='Neomorphs' component={Neomorphs} />
+        <Drawer.Screen name='Textreco' component={Textreco} />
+        <Drawer.Screen name='VideoCrop' component={VideoCrop} />
         <Drawer.Screen name='Login' component={Login} />
     </Drawer.Navigator>
   )

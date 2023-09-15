@@ -1,152 +1,79 @@
-import { View, Text, TextInput, Button, TouchableOpacity, StyleSheet, PermissionsAndroid, Image, Platform, } from 'react-native'
-import React, { useState } from 'react'
-import { Formik } from 'formik';
-import * as Yup from 'yup';
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-import { PERMISSIONS, request } from 'react-native-permissions';
+import { Alert,Dimensions, FlatList, Image, PermissionsAndroid, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { CameraRoll } from '@react-native-camera-roll/camera-roll';
+import { FlingGestureHandler, GestureHandlerRootView, PanGestureHandler } from 'react-native-gesture-handler';
+import Animated, { useAnimatedGestureHandler, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
+import ImageItem from './ImageItem';
 
 
 const Test = () => {
 
-  const [cameraphoto, setCameraphoto] = useState();
-    
-    // const validationSchema = Yup.object().shape({
-    // //   inputValue: Yup.string().required('Input cannot be empty').min(3, 'Input must be at least 3 characters long')
-    //   inputValue: Yup.string().email("this is an email")
-    // });
-    
-    // const handleSubmit = (values) => {
-    //   // Perform actions with the valid input
-    //   console.log(values);
-    // };
 
-  const askForPermissions = permisson => {
-    request(permisson).then(result => {
-      console.log(result);
-    });
-  }
+    const [photo, setPhoto] = useState();
 
+    useEffect(() => {
+        // hasPermission();
+    }, [])
 
-    const opencamera =  () => {
-      let options = {
-        storageOptions:{
-          path:"image"
+    const hasPermission = async () => {
+        const permission = Platform.Version >= 33 
+        ? PermissionsAndroid.PERMISSIONS.READ_MEDIA_IMAGES 
+        : PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE; 
+
+        const hasPermission = await PermissionsAndroid.check(permission);
+        if(hasPermission){
+            return true;
         }
-      }
 
-        launchCamera(options, response => {
-          // setCameraphoto(response.assets[0].uri)
-        })
+        const status = await PermissionsAndroid.request(permission);
+        return status === 'granted'
+    }  
+
+    const getAllPhotos = () =>{
+        console.log("running")
+        CameraRoll.getPhotos({
+            first: 20,
+            assetType: 'Photos',
+          })
+          .then(r => {
+            // console.log(JSON.stringify(r.edges))
+            setPhoto(r.edges);
+            // this.setState({ photos: r.edges });
+          })
+          .catch((err) => {
+             //Error Loading Images
+          });
     }
-
-
-    const opengallery = () => {
-
-      let options = {
-        storageOptions:{
-          path:"image"
-        }
-      }
-
-      launchImageLibrary(options,response => {
-        console.log(response);
-        setCameraphoto(response.assets[0].uri)
-        console.log(cameraphoto)
-      })
-    }
-
 
   return (
-    <View>
-      {/* <Formik
-        initialValues={{ inputValue: '' }}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-      >
-        {({ handleChange, handleSubmit, values, errors }) => (
-          <View>
-            <TextInput
-              value={values.inputValue}
-              onChangeText={handleChange('inputValue')}
-              placeholder="Enter a value"
-            />
-            <Text style={{ color: 'red' }}>{errors.inputValue}</Text>
-            <Button title="Submit" onPress={handleSubmit} />
-          </View>
-        )}
-      </Formik> */}
+    <GestureHandlerRootView style={{flex: 1}}>
+        <View style={{width: "100%", alignItems: 'center'}}> 
 
-      <View>
-      <TouchableOpacity
-        onPress={opencamera}
-        style = {styles.btn} 
-        >
-          <Text style = {styles.btntxt} >open Camera</Text>
-        </TouchableOpacity>
 
-        <Image style = {styles.photo} source={{uri: cameraphoto}} />
 
-      <TouchableOpacity
-        onPress={opengallery}
-        style = {styles.btn} 
-        >
-          <Text style = {styles.btntxt} >open Gallery</Text>
-        </TouchableOpacity>
+      <FlatList
+      numColumns={2}
+          data={photo}
+          renderItem={({item, index}) => {
+              return <ImageItem imguri={item.node.image.uri} index={index} /> 
+          }}
+      />
 
-      <TouchableOpacity
+
+
+        </View>
+        <TouchableOpacity
+        style={{width: "90%", height: 50, backgroundColor : 'black', justifyContent: 'center', alignSelf:'center', alignItems: 'center' ,position: 'absolute', bottom: 20, borderRadius: 8}}
         onPress={() => {
-          if(Platform.OS=='ios'){
-            askForPermissions(PERMISSIONS.IOS.CAMERA);
-          }else{
-            askForPermissions(PERMISSIONS.ANDROID.CAMERA);
-          }
-        }}
-        style = {styles.btn} 
-        >
-          <Text style = {styles.btntxt} >open Camera</Text>
+            getAllPhotos();
+        }} >
+            <Text style={{color: 'white'}}>Sync Photo to Gallery</Text>
         </TouchableOpacity>
 
-      {/* <TouchableOpacity
-        onPress={() => {
-          if(Platform.OS=='ios'){
-            askForPermissions(PERMISSIONS.IOS.MEDIA_LIBRARY);
-          }else{
-            askForPermissions(PERMISSIONS.ANDROID.READ_MEDIA_IMAGES);
-          }
-        }}
-        style = {styles.btn} 
-        >
-          <Text style = {styles.btntxt} >open Gallery</Text>
-        </TouchableOpacity> */}
-
-        
-
-       </View>
-  </View>
+    </GestureHandlerRootView>
   )
 }
 
 export default Test
 
-const styles = StyleSheet.create({
-  btn:{
-    backgroundColor: 'blue',
-    height: 40,
-    width: 200,
-    borderRadius: 8,
-    alignSelf: 'center',
-    marginVertical: 30,
-    justifyContent: 'center'
-  },
-  btntxt:{
-    color: 'white',
-    alignSelf: 'center',
-    fontSize: 18
-  },
-  photo:{
-    alignSelf: 'center',
-    height: 80,
-    width: 80
-  }
-
-})
+const styles = StyleSheet.create({})

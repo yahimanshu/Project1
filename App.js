@@ -4,6 +4,7 @@ import Nav from './src/Nav'
 // import messaging from '@react-native-firebase/messaging'
 import { Provider} from 'react-redux';
 import MyStore from './src/reduxtoolkit/MyStore';
+import Draw from './src/screen/Draw';
 
 const App = () => {
   // useEffect(() => {
@@ -29,9 +30,10 @@ const App = () => {
   //   return unsubscribe;
   // }, []);
   return (
-    <Provider store={MyStore}>
-      <Nav/>
-    </Provider> 
+    // <Provider store={MyStore}>
+    //   <Nav/>
+    // </Provider> 
+    <Draw />
   );
 }
 
