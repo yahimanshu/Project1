@@ -58,8 +58,10 @@ const Allitems = () => {
     {/* <View style={{flex: 1}}> */}
         <View style={{width: "100%", alignItems: 'center'}}> 
 
+        <ImgView />
 
 
+{/* 
                 <FlatList
                 numColumns={2}
                     data={photo}
@@ -74,7 +76,7 @@ const Allitems = () => {
                             //     </PanGestureHandler>
                             // <Text>iii</Text>
                     }}
-                />
+                /> */}
 
 
 

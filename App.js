@@ -5,16 +5,18 @@ import Nav from './src/Nav'
 import { Provider} from 'react-redux';
 import MyStore from './src/reduxtoolkit/MyStore';
 import Draw from './src/screen/Draw';
+import Test from './src/Test';
+import ShakingButton from './src/ShakingButton';
 
 const App = () => {
-  // useEffect(() => {
-  //   getDeviceToken();
-  // },[])
+  useEffect(() => {
+    getDeviceToken();
+  },[])
 
-  // const getDeviceToken = async() => {
-  //   let tok = await messaging().getToken();
-  //   console.log(tok);
-  // }
+  const getDeviceToken = async() => {
+    let tok = await messaging().getToken();
+    console.log(tok);
+  }
 
   // useEffect(() => {
   //   const unsubscribe = messaging().onMessage(async remoteMessage => {
@@ -33,7 +35,9 @@ const App = () => {
     // <Provider store={MyStore}>
     //   <Nav/>
     // </Provider> 
-    <Draw />
+    <Test />
+    // <ShakingButton />
+    // <Draw />
   );
 }
 

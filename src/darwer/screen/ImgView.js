@@ -30,13 +30,13 @@ const ImgView = (props) => {
 
     const animationIconLeft = useAnimatedStyle(() => {
         return{
-            transform:[{scale: animation.value > 60 ? withSpring(2) : withSpring(1)}],
+            transform:[{scale: animation.value = 1 ? withSpring(2) : withSpring(1)}],
         }
     }) 
 
     const animationIconRight = useAnimatedStyle(() => {
         return{
-            transform:[{scale: animation.value < -60 ? (withSpring(2)) : withSpring(1)}],
+            transform:[{scale: animation.value = 2 ? (withSpring(2)) : withSpring(1)}],
         }
     }) 
 
@@ -49,7 +49,19 @@ const ImgView = (props) => {
 
   return (
     <PanGestureHandler onGestureEvent={gestureHandler}>
-    <Animated.View style={{backgroundColor: 'green', width: '50%', height: 150, elevation: 5, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginVertical: 5}}>
+
+        <Animated.View style={[{backgroundColor: "red", height: 40, width: 100, borderRadius: 20, justifyContent: 'center'}, animationIconRight]} >
+            <TouchableOpacity
+                onPress={() =>{
+                    animation.value = 1
+                }}
+            >
+                <Text style={{fontSize: 20, alignSelf: 'center', color: "#FFFFFF"}}>
+                    BTN
+                </Text>
+            </TouchableOpacity>
+        </Animated.View>
+    {/* <Animated.View style={{backgroundColor: 'green', width: '50%', height: 150, elevation: 5, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginVertical: 5}}>
         <Animated.View style={[{width: 14, height: 14, marginLeft: 20}, animationIconLeft]}>
             <TouchableOpacity onPress={() => {
                 Alert.alert("This is " + props.index)
@@ -74,7 +86,7 @@ const ImgView = (props) => {
     </TouchableOpacity>
         
     </Animated.View>
-</Animated.View>
+</Animated.View> */}
 </PanGestureHandler>
   )
 }
